@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="public/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Daftar Tugas</h2>
+        <button onclick="logout()">Logout</button>
+        <form id="taskForm">
+            <input type="text" id="taskTitle" placeholder="Judul Tugas" required>
+            <input type="text" id="taskDescription" placeholder="Deskripsi" required>
+            <button type="submit">Tambah</button>
+        </form>
+        <ul id="taskList"></ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
