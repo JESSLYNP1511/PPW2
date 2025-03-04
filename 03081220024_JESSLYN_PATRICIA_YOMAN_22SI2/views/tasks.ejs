@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Dashboard 🐾</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #ffe4e1; /* Warna pink pastel */
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 650px;
+            text-align: center;
+            position: relative;
+        }
+        .cat-icon {
+            width: 90px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #d63384;
+        }
+        form {
+            margin: 10px 0;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ff85a2;
+            border-radius: 8px;
+            background: #fff0f6;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #ff4081;
+            background: #ffe0f0;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #ff4081;
+        }
+        table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+            background: #fffaf0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ffc0cb;
+        }
+        th {
+            background: #ffb6c1;
+            color: white;
+        }
+        a {
+            color: #d63384;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://cdn-icons-png.flaticon.com/512/742/742751.png" alt="Cat Icon" class="cat-icon">
+        <h2>Welcome, <%= user.username %>! 🐾</h2>
+        <form action="/auth/logout" method="POST">
+            <button type="submit">Logout</button>
+        </form>
+
+        <h3>Add New Task</h3>
+        <form action="/tasks" method="POST">
+            <input type="text" name="title" placeholder="Task Title" required>
+            <input type="text" name="category" placeholder="Category" required>
+            <input type="date" name="deadline" required>
+            <select name="status">
+                <option value="pending">Pending</option>
+                <option value="progress">In Progress</option>
+                <option value="done">Done</option>
+            </select>
+            <button type="submit">Add Task</button>
+        </form>
+
+        <div style="margin-bottom: 10px;">
+            <label for="statusFilter">Filter by Status:</label>
+            <select id="statusFilter" onchange="filterTasks()">
+                <option value="all">All</option>
+                <option value="pending">Pending</option>
+                <option value="progress">In Progress</option>
+                <option value="done">Done</option>
+            </select>
+        </div>
+        
+        <h3>Your Tasks</h3>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Deadline</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            <% tasks.forEach(task => { %>
+            <tr>
+                <td><%= task.title %></td>
+                <td><%= task.category %></td>
+                <td><%= task.deadline.toDateString() %></td>
+                <td class="task-status"><%= task.status %></td>
+                <td>
+                    <a href="/tasks/edit/<%= task._id %>">Edit</a>
+                    <form action="/tasks/delete/<%= task._id %>" method="POST" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <% }) %>
+        </table>
+    </div>
+
+    <script>
+        function filterTasks() {
+            let filterValue = document.getElementById("statusFilter").value;
+            let rows = document.querySelectorAll("table tr");
+
+            rows.forEach((row, index) => {
+                if (index === 0) return;
+                
+                let statusCell = row.querySelector(".task-status");
+                if (statusCell) {
+                    let status = statusCell.textContent.trim().toLowerCase();
+                    if (filterValue === "all" || status === filterValue) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            });
+        }
+    </script>    
+</body>
+</html>

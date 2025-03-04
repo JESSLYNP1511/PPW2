@@ -1,0 +1,56 @@
+# utsweb
+
+Link -> https://github.com/Edbert395/utsweb.git
+
+Todo App adalah aplikasi yang berbasis Node.js, Express.js, dan MongoDB yang divalidasi dengan JSON Web Token (JWT). Aplikasi ini membutuhkan penginstalan Node.js dan MongoDB. 
+
+Cara mengatur database adalah sebagai berikut -> 
+- Pastikan MongoDB berjalan di komputer menggunakan aplikasi seperti mongoDB Compass.
+- Buat file.env di bagian utama proyek dan tambahkan konfigurasi seperti berikut ->
+1. MONGODB=mongodb://localhost:27017/uts
+2. JWT_SECRET=0b523a169206db0b073c5b94bc3b9e94b42f8a448e42aa494c39af7ac9fb782564b55eae37048d795270ce98ccd697768e10557dc676d16472c70f0b51221dcbdd3ac164b6349a8fb526a0d08b7b565f49a48462c4578790f07d38d65519fb26ea5111db381041f1b94f0fe131816343c25fc7bd20d6403d36f3a6a9a55906209304ba0c30aad0aa5e6fbc1104cf56b5642f5328681db395dd28b2d2b82e19ef8d919c3cebdc47d24cfb97e7a14ff9cdc95e51aff9661fe52230fadd974ee863fea25e1f68a73ba688889997f0dcf04919df4264d924403d93327e19161aba184323382df562ae11ed8193a6236658c2276d1542c3d2c5480fc691cdf34776ea
+3. PORT=3000
+
+Cara menjalankan proyek secara lokal adalah sebagai berikut ->
+- Clone repositori ini dengan menggunakan git clone https://github.com/Edbert395/utsweb.git
+- Masuk ke direktori proyek dengan menggunakan cd utsweb
+- Pasang dependensi dengan npm install
+- Jalankan server dengan npm start
+- Akses aplikasi melalui browser di http://localhost:3000
+
+Fitur utama yang telah diimplementasikan adalah sebagai berikut ->
+- Autentikasi pengguna yang dimana register dan login menggunakan password yang dihash menggunakan bcrypt
+- Manajemen tugas ->
+1. Tambah tugas baru
+2. Lihat daftar tugas berdasarkan pengguna
+3. Edit tugas yang sudah ada
+4. Hapus tugas
+- Keamanan ->
+1. Middleware untuk melindungi rute menggunakan JWT 
+2. Hash password dengan bcrypt
+- Tampilan responsif menggunakan bootstrap untuk antarmuka pengguna yang responsif
+
+API Endpoints sebagai berikut -> 
+- Autentikasi -> 
+1. POST /api/auth/register → Mendaftarkan pengguna baru
+2. POST /api/auth/login → Login dan mendapatkan token JWT
+- Tugas (Memerlukan autentikasi JWT) ->
+1. POST /api/tasks → Menambahkan tugas baru
+2. GET /api/tasks → Mendapatkan semua tugas milik pengguna
+3. PUT /api/tasks/:id → Memperbarui tugas berdasarkan ID
+4. DELETE /api/tasks/:id → Menghapus tugas berdasarkan ID
+
+Struktur proyek sebagai berikut -> 
+/utsweb
+│-- /public           # File statis (CSS, JS, Images)
+│-- /views            # Template EJS
+│-- /routes           # Routing aplikasi
+│-- /controllers      # Logika bisnis
+│-- /models           # Model database
+│-- /middlewares      # Middleware autentikasi
+│-- .env              # Konfigurasi lingkungan
+│-- server.js         # Entry point aplikasi
+│-- package.json      # Dependensi proyek
+
+Kesimpulan ->
+Todo App adalah aplikasi berbasis Node.js, Express.js, dan MongoDB yang menggunakan JSON Web Token (JWT) untuk validasi. Itu membutuhkan Node.js dan MongoDB, yang dapat dijalankan melalui MongoDB Compass.  Untuk mengkonfigurasi database, Anda harus membuat file.env yang berisi MONGODB URL, JWT_SECRET, dan PORT.  Untuk menjalankan proyek secara lokal, pengguna harus meng-clone repositori dari GitHub, masuk ke direktori proyek, menginstal dependensi dengan npm install, dan kemudian menjalankan server dengan npm start, dan mendapatkan akses ke server melalui http://localhost:3000. Fitur utama aplikasi termasuk autentikasi pengguna melalui hashing password menggunakan bcrypt, manajemen tugas (menambahkan, melihat, mengedit, dan menghapus tugas), dan keamanan melalui hashing password dan middleware JWT.  Bootstrap digunakan untuk membuat tampilan responsif.  API endpoint termasuk autentikasi pengguna (/api/auth/register dan /api/auth/login) dan pengelolaan tugas yang membutuhkan autentikasi JWT (/api/tasks/POST, GET, PUT, dan DELETE).  Struktur proyek termasuk direktori untuk file statis, template EJS, routing, logika bisnis, model database, middleware, dan file utama seperti server.js dan package.json.
